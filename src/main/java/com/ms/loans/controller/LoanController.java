@@ -38,9 +38,14 @@ public class LoanController {
     }
 
     @PutMapping
-    public ResponseEntity<Response> updateLoan(LoanDto updatableLoan){
+    public ResponseEntity<ResponseDto> updateLoan(LoanDto updatableLoan){
         loanService.updateLoan(updatableLoan);
-        return null;
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        new ResponseDto("200", "Loan Deleted successfully")
+                );
+
     }
 
 
