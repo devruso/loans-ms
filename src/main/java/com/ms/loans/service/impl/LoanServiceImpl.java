@@ -23,16 +23,13 @@ public class LoanServiceImpl implements ILoanService {
 
     @Override
     public Loan createLoan(LoanDto loanObject){
-        loanRepository
-                .findByMobileNumber(loanObject.getMobileNumber())
-                .orElseThrow(
-                        () -> new LoanAlreadyExistsException("This mobile number already is already registered.")
-                );
+        if (loanRepository.findByMobileNumber(loanObject.getMobileNumber()).isPresent()){
+            throw new LoanAlreadyExistsException("Já existe um empréstimo registrado com esse número.");
+        }
+
 
         Loan createdLoan = LoanMapper.DtoToEntity(loanObject, new Loan());
-
         loanRepository.save(createdLoan);
-
         return createdLoan;
     }
 
@@ -67,6 +64,14 @@ public class LoanServiceImpl implements ILoanService {
                         );
         loanRepository.deleteById(foundLoan.getId());
         return true;
+    }
+
+    @Override
+    public Loan findLoanByMobileNumber(String mobileNumber) {
+        return loanRepository
+                .findByMobileNumber(mobileNumber)
+                .orElseThrow(()-> new ResourceNotFoundException("loan", "mobile number", mobileNumber));
+
     }
 
 
