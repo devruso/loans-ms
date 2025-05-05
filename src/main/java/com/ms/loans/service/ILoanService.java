@@ -17,4 +17,5 @@ public interface ILoanService {
 
     boolean deleteLoan(LoanDto loan);
 
+    Loan findLoanByMobileNumber(String mobileNumber);
 }
