@@ -2,10 +2,7 @@ package com.ms.loans.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -13,7 +10,7 @@ import java.util.UUID;
 @Table(name = "loans")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
+@Getter @Setter @ToString
 public class Loan extends  BaseEntity{
 
     @Column(name= "loan_id")
